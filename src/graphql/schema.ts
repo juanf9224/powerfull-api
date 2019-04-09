@@ -1,7 +1,7 @@
 import { GraphQLObjectType, GraphQLString, GraphQLSchema } from 'graphql';
 
 import PaintingType from './PaintingType';
-import Painting from './../models/Painting';
+import Painting from './../models/painting';
 
 const RootQuery = new GraphQLObjectType({
     name: 'RootQueryType',

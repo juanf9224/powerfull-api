@@ -10,8 +10,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const hapi = require("hapi");
 const apollo_server_hapi_1 = require("apollo-server-hapi");
-const painting_1 = require("./models/painting");
 const ConnectionUtil_1 = require("./connection/ConnectionUtil");
+const schema_1 = require("./graphql/schema");
+const painting_1 = require("./models/painting");
 /* swagger section */
 const Inert = require('inert');
 const Vision = require('vision');
@@ -39,7 +40,9 @@ const plugins = [
         options: {
             name: 'graphQl-plugin',
             path: '/graphql',
-            graphqlOptions: {},
+            graphqlOptions: {
+                schema: schema_1.default
+            },
             route: {
                 cors: true
             }
@@ -59,16 +62,19 @@ const plugins = [
         }
     }
 ];
+const registrationOptions = {
+    once: true
+};
 const start = () => __awaiter(this, void 0, void 0, function* () {
-    server.register(plugins);
+    yield server.register(plugins, registrationOptions);
     server.route([
         {
             method: 'GET',
-            path: 'api/v1/paintings',
-            config: {
-                description: 'Get all the paintings',
-                tags: ['api', 'v1', 'painting']
-            },
+            path: '/api/v1/paintings',
+            // config: {
+            //     description: 'Get all the paintings',
+            //     tags: ['api', 'v1', 'painting']
+            // },
             handler: (req, res) => {
                 //logic here
                 return painting_1.default.find();
@@ -77,10 +83,10 @@ const start = () => __awaiter(this, void 0, void 0, function* () {
         {
             method: 'POST',
             path: '/api/v1/paintings',
-            config: {
-                description: 'Save new paintings',
-                tags: ['api', 'v1', 'painting']
-            },
+            // config: {
+            //     description: 'Save new paintings',
+            //     tags: ['api', 'v1', 'painting']
+            // },
             handler: (req, res) => {
                 const { name, url, technique } = req.payload;
                 const painting = new painting_1.default({
@@ -88,6 +94,7 @@ const start = () => __awaiter(this, void 0, void 0, function* () {
                     url,
                     technique
                 });
+                return painting.save();
             }
         }
     ]);

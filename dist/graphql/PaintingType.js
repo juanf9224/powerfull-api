@@ -10,5 +10,4 @@ const PaintingType = new graphql_1.GraphQLObjectType({
         technique: { type: graphql_1.GraphQLString }
     })
 });
-module.exports = PaintingType;
 exports.default = PaintingType;

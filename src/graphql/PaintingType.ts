@@ -10,5 +10,4 @@ const PaintingType = new GraphQLObjectType({
     })
 });
 
-module.exports = PaintingType;
 export default PaintingType;

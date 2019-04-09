@@ -1,14 +1,15 @@
-import { connect, connection } from 'mongoose';
+import * as mongoose from 'mongoose';
 
 const user = 'admin';
 const pwd = 'admin';
 const db = 'test?retryWrites=true';
 const url = '@powerfull-api-mongodb-cluster-gbmsd.mongodb.net/';
 const connectionString = `mongodb+srv://${user}:${pwd}${url}${db}`;
+const connectionStringLocal = 'mongodb://localhost:27017/test';
 const ConnectionUtil = {
-    mongooseConnect: () => connect(connectionString, { useNewUrlParser: true })
+    mongooseConnect: () => mongoose.connect(connectionStringLocal, { useNewUrlParser: true })
                             .catch(err => console.error('could not connect to database: ', err)),
-    mongooseConnection: () => connection.once('open', () => {
+    mongooseConnection: () => mongoose.connection.once('open', () => {
         console.log('Connected to database');
     })
 }

@@ -1,18 +1,22 @@
 import * as hapi from 'hapi';
 import { graphqlHapi, graphiqlHapi } from 'apollo-server-hapi';
-import Painting from './models/painting';
 import ConnectionUtil from './connection/ConnectionUtil';
+import schema from './graphql/schema';
+import Painting from './models/painting';
+const mongoose = require('mongoose');
 
 /* swagger section */
 const Inert = require('inert');
 const Vision = require('vision');
 const HapiSwagger = require('hapi-swagger');
+const Pack = require('./../package');
 
 const server: hapi.Server = new hapi.Server({
     port: '4000',
     host: 'localhost'
 });
 
+// Connect to db
 ConnectionUtil.mongooseConnect();
 ConnectionUtil.mongooseConnection();
 
@@ -24,7 +28,7 @@ const plugins: hapi.ServerRegisterPluginObject<any>[] = [
         options: {
             info: {
                 title: 'Paintings API Documentation',
-                version: '1.0'
+                version: Pack.version
             }
         }
     },
@@ -34,7 +38,7 @@ const plugins: hapi.ServerRegisterPluginObject<any>[] = [
             name: 'graphQl-plugin',
             path: '/graphql',
             graphqlOptions: {
-                
+                schema
             },
             route: {
                 cors: true
@@ -47,7 +51,7 @@ const plugins: hapi.ServerRegisterPluginObject<any>[] = [
         options: {
             name: 'graphiQl-plugin',
             path: '/graphiql',
-            graphqlOptions: {
+            graphiqlOptions: {
                 endpointURL: '/graphql'
             },
             route: {
@@ -56,18 +60,22 @@ const plugins: hapi.ServerRegisterPluginObject<any>[] = [
         }
         
     }
-]
+];
+
+const registrationOptions: hapi.ServerRegisterOptions = {
+    once: true
+};
 
 const start = async () => {
-    server.register(plugins);
+    await server.register(plugins, registrationOptions).catch(err => console.error(`Could not register plugins: ${err}`));
     server.route([
         {
             method: 'GET',
-            path: 'api/v1/paintings',
-            config: {
-                description: 'Get all the paintings',
-                tags: ['api', 'v1', 'painting']
-            },
+            path: '/api/v1/paintings',
+            // config: {
+            //     description: 'Get all the paintings',
+            //     tags: ['api', 'v1', 'painting']
+            // },
             handler: (req: any, res: any) => {
                 //logic here
                 return Painting.find();
@@ -76,17 +84,18 @@ const start = async () => {
         {
             method: 'POST',
             path: '/api/v1/paintings',
-            config: {
-                description: 'Save new paintings',
-                tags: ['api', 'v1', 'painting']
-            },
+            // config: {
+            //     description: 'Save new paintings',
+            //     tags: ['api', 'v1', 'painting']
+            // },
             handler: (req: any, res: any) => {
                 const { name, url, technique } = req.payload;
-                const painting = new Painting({
+                let painting = new Painting({
                     name,
                     url,
                     technique
-                })
+                });
+                return painting.save();
             }
         }
     ]);

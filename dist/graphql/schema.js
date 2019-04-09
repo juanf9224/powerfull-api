@@ -18,4 +18,3 @@ const RootQuery = new graphql_1.GraphQLObjectType({
 exports.default = new graphql_1.GraphQLSchema({
     query: RootQuery
 });
-;
