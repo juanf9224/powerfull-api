@@ -1,0 +1,45 @@
+{
+  "name": "powerfull-api",
+  "version": "1.0.0",
+  "description": "learning curve",
+  "main": "index.js",
+  "scripts": {
+    "test": "test",
+    "start": "nodemon dist/index.js",
+    "tsc": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/juanf9224/powerfull-api.git"
+  },
+  "keywords": [
+    "powerfullapi"
+  ],
+  "author": "Juan Fernandez",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/juanf9224/powerfull-api/issues"
+  },
+  "homepage": "https://github.com/juanf9224/powerfull-api#readme",
+  "dependencies": {
+    "@types/hapi": "^18.0.1",
+    "@types/node": "^11.13.1",
+    "@types/swagger-hapi": "^0.7.7",
+    "apollo-server-hapi": "1.4.0",
+    "eslint": "^5.16.0",
+    "graphql": "^14.2.1",
+    "graphql-tools": "^4.0.4",
+    "hapi": "^18.1.0",
+    "hapi-swagger": "^9.4.2",
+    "inert": "^5.1.3",
+    "jest": "^24.7.1",
+    "mongoose": "^5.4.22",
+    "nodemon": "^1.18.10",
+    "typescript": "^3.4.2",
+    "vision": "^5.4.4"
+  },
+  "devDependencies": {
+    "@types/graphql": "^14.2.0",
+    "@types/mongoose": "^5.3.25"
+  }
+}
