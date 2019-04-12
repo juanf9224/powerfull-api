@@ -2,7 +2,7 @@ import * as hapi from 'hapi';
 import { graphqlHapi, graphiqlHapi } from 'apollo-server-hapi';
 import ConnectionUtil from './connection/ConnectionUtil';
 import schema from './graphql/schema';
-import Painting from './models/painting';
+import Painting from './models/Painting';
 const mongoose = require('mongoose');
 
 /* swagger section */
@@ -12,8 +12,8 @@ const HapiSwagger = require('hapi-swagger');
 const Pack = require('./../package');
 
 const server: hapi.Server = new hapi.Server({
-    port: '4000',
-    host: 'localhost'
+    port: '3000',
+    host: '0.0.0.0'
 });
 
 // Connect to db
