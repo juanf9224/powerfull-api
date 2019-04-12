@@ -4,9 +4,8 @@
   "description": "learning curve",
   "main": "index.js",
   "scripts": {
-    "test": "test",
-    "start": "nodemon dist/index.js",
-    "tsc": "tsc"
+    "test": "test",        
+    "start": "concurrently --kill-others \"tsc -w\" \"nodemon dist/index.js\""
   },
   "repository": {
     "type": "git",
@@ -22,9 +21,6 @@
   },
   "homepage": "https://github.com/juanf9224/powerfull-api#readme",
   "dependencies": {
-    "@types/hapi": "^18.0.1",
-    "@types/node": "^11.13.1",
-    "@types/swagger-hapi": "^0.7.7",
     "apollo-server-hapi": "1.4.0",
     "eslint": "^5.16.0",
     "graphql": "^14.2.1",
@@ -39,6 +35,10 @@
     "vision": "^5.4.4"
   },
   "devDependencies": {
+    "concurrently": "^2.2.0",
+    "@types/hapi": "^18.0.1",
+    "@types/node": "^11.13.1",
+    "@types/swagger-hapi": "^0.7.7",
     "@types/graphql": "^14.2.0",
     "@types/mongoose": "^5.3.25"
   }
