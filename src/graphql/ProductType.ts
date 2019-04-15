@@ -5,7 +5,6 @@ const ProductType = new GraphQLObjectType({
     fields: () => ({
         id: { type: GraphQLString },
         name: { type: GraphQLString },
-        quantity: { type: GraphQLString },
         price: { type: GraphQLFloat },
         maxPrice:{ type: GraphQLFloat },
         minPrice:{ type: GraphQLFloat },
