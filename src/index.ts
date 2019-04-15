@@ -2,8 +2,7 @@ import * as hapi from 'hapi';
 import { graphqlHapi, graphiqlHapi } from 'apollo-server-hapi';
 import ConnectionUtil from './connection/ConnectionUtil';
 import schema from './graphql/schema';
-import Painting from './models/Painting';
-const mongoose = require('mongoose');
+import ApiRoutes from './api/routes';
 
 /* swagger section */
 const Inert = require('inert');
@@ -11,9 +10,10 @@ const Vision = require('vision');
 const HapiSwagger = require('hapi-swagger');
 const Pack = require('./../package');
 
+// Server parameters
 const server: hapi.Server = new hapi.Server({
     port: '3000',
-    host: '0.0.0.0'
+    host: 'localhost'
 });
 
 // Connect to db
@@ -68,37 +68,7 @@ const registrationOptions: hapi.ServerRegisterOptions = {
 
 const start = async () => {
     await server.register(plugins, registrationOptions).catch(err => console.error(`Could not register plugins: ${err}`));
-    server.route([
-        {
-            method: 'GET',
-            path: '/api/v1/paintings',
-            // config: {
-            //     description: 'Get all the paintings',
-            //     tags: ['api', 'v1', 'painting']
-            // },
-            handler: (req: any, res: any) => {
-                //logic here
-                return Painting.find();
-            }
-        },
-        {
-            method: 'POST',
-            path: '/api/v1/paintings',
-            // config: {
-            //     description: 'Save new paintings',
-            //     tags: ['api', 'v1', 'painting']
-            // },
-            handler: (req: any, res: any) => {
-                const { name, url, technique } = req.payload;
-                let painting = new Painting({
-                    name,
-                    url,
-                    technique
-                });
-                return painting.save();
-            }
-        }
-    ]);
+    server.route(ApiRoutes());
 
     await server.start();
     console.log(`Server running at: ${server.info.uri}`);
