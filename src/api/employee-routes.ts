@@ -57,7 +57,7 @@ const EmployeeRoutes: ServerRoute[] = [
         },
         handler: async (req: Request, res: ResponseToolkit) => {
             try {
-                let employee: any = await Employee.findByIdAndUpdate(req.params.id, req.payload);
+                let employee: any = await Employee.findOneAndUpdate(req.params.id, req.payload);
                 return res.response(employee);
             } catch (error) {
                 return res.response(error).code(500);

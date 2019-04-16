@@ -17,6 +17,19 @@ const ProductRoutes: ServerRoute[] = [
         }
     },
     {
+        method: 'POST',
+        path: '/api/v1/products/findAllById',     
+        handler: async (req: Request, res: ResponseToolkit) => {            
+            try {
+                console.log(req.payload);
+                let product: any = await Product.find({_id: {$in : req.payload}});
+                return res.response(product);
+            } catch (error) {
+                return res.response(error).code(500);
+            }
+        }
+    },
+    {
         method: 'GET',
         path: '/api/v1/products',
         handler: async (req: Request, res: ResponseToolkit) => {            
@@ -71,6 +84,36 @@ const ProductRoutes: ServerRoute[] = [
             }
         }
     },
+    {
+        method: 'PUT',
+        path: '/api/v1/products/{id}',        
+        // options: {
+        //     validate: {
+        //         payload: {
+        //             name: Joi.string().optional(),
+        //             quantity: Joi.number().optional(),
+        //             price: Joi.number().optional(),
+        //             maxPrice: Joi.number().optional(),
+        //             minPrice: Joi.number().optional(),
+        //             expirationDate: Joi.date().optional(),
+        //             warranty: Joi.date().optional(),
+        //         }
+        //     }
+        // },
+        handler: async (req: Request, res: ResponseToolkit) => {
+            try{
+                if(req.params && req.params.id){
+                    let product: any = await Product.findOneAndUpdate(req.params.id, req.payload);
+                    return res.response(product);
+                }else{
+                    return res.response('invalid parameters').code(500);
+                }             
+                
+            } catch (error) {
+                return res.response(error).code(500);
+            }
+        }
+    }
 ];
 
 export default ProductRoutes;

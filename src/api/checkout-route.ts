@@ -22,15 +22,16 @@ const CheckoutRoutes: ServerRoute[] = [
         options: {
             validate: {
                 payload: {
-                    amount: Joi.string().required(),
-                    salesman: Joi.number().required(),
-                    client: Joi.number().required()
+                    amount: Joi.number().required(),
+                    salesman: Joi.string().required(),
+                    client: Joi.string().required()
                 }
             }
         },
         handler: async (req: Request, res: ResponseToolkit) => {
-            const payload: any = req.payload;
-            try {            
+            try {         
+                const payload: any = req.payload;   
+                console.log(payload);
                 const { 
                     amount, 
                     salesman,

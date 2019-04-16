@@ -1,4 +1,5 @@
 import { Schema, model } from 'mongoose';
+import { Decimal128 } from 'mongodb';
 
 const ProductSchema: Schema = new Schema({
     name: String,
