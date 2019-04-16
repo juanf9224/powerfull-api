@@ -12,7 +12,7 @@ const Pack = require('./../package');
 
 // Server parameters
 const server: hapi.Server = new hapi.Server({
-    port: '3000',
+    port: '5000',
     host: 'localhost'
 });
 

@@ -6,6 +6,18 @@ import Product from "../models/Product";
 const ProductRoutes: ServerRoute[] = [
     {
         method: 'GET',
+        path: '/api/v1/products/{id}',
+        handler: async (req: Request, res: ResponseToolkit) => {            
+            try {
+                let product: any = await Product.findById(req.params.id);
+                return res.response(product);
+            } catch (error) {
+                return res.response(error).code(500);
+            }
+        }
+    },
+    {
+        method: 'GET',
         path: '/api/v1/products',
         handler: async (req: Request, res: ResponseToolkit) => {            
             try {
@@ -23,6 +35,7 @@ const ProductRoutes: ServerRoute[] = [
             validate: {
                 payload: {
                     name: Joi.string().required(),
+                    quantity: Joi.number().required(),
                     price: Joi.number().required(),
                     maxPrice: Joi.number().required(),
                     minPrice: Joi.number().required(),
@@ -36,6 +49,7 @@ const ProductRoutes: ServerRoute[] = [
             try {            
                 const { 
                     name, 
+                    quantity,
                     price,
                     maxPrice, 
                     minPrice, 
@@ -44,6 +58,7 @@ const ProductRoutes: ServerRoute[] = [
     
                 let product = new Product({
                     name, 
+                    quantity,
                     price,
                     maxPrice, 
                     minPrice, 
