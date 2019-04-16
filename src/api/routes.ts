@@ -7,6 +7,7 @@ import Employee from "../models/Employee";
 import ProductRoutes from "./product-routes";
 import ClientRoutes from "./client-routes";
 import EmployeeRoutes from "./employee-routes";
+import CheckoutRoutes from "./checkout-route";
 
 const ApiRoutes = (): ServerRoute[] => {
     return [
@@ -41,7 +42,8 @@ const ApiRoutes = (): ServerRoute[] => {
         },
         ...ProductRoutes,
         ...ClientRoutes,
-        ...EmployeeRoutes
+        ...EmployeeRoutes,
+        ...CheckoutRoutes
     ]
 };
 
