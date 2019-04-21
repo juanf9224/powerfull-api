@@ -12,8 +12,7 @@ const Pack = require('./../package');
 
 // Server parameters
 const server: hapi.Server = new hapi.Server({
-    port: '5000',
-    host: 'localhost'
+    port: '5000'
 });
 
 // Connect to db
@@ -71,6 +70,7 @@ const start = async () => {
     server.route(ApiRoutes());
 
     await server.start();
+    console.log(`Enviroment is ${process.env.NODE_ENV}`);
     console.log(`Server running at: ${server.info.uri}`);
 }
 
