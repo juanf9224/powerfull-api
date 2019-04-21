@@ -102,14 +102,16 @@ const ProductRoutes: ServerRoute[] = [
         // },
         handler: async (req: Request, res: ResponseToolkit) => {
             try{
+                const payload: any = req.payload;
                 if(req.params && req.params.id){
-                    let product: any = await Product.findOneAndUpdate(req.params.id, req.payload);
+                    let product: any = await Product.findOneAndUpdate({ _id: req.params.id }, payload);
                     return res.response(product);
                 }else{
                     return res.response('invalid parameters').code(500);
                 }             
                 
             } catch (error) {
+                console.log(error);
                 return res.response(error).code(500);
             }
         }
