@@ -6,7 +6,7 @@
   "scripts": {
     "test": "test",
     "start-dev": "SET NODE_ENV=development && concurrently --kill-others \"tsc -w\" \"nodemon dist/index.js\"",
-    "start": "SET NODE_ENV=production && concurrently --kill-others \"tsc -w\" \"node dist/index.js\""
+    "start": "export NODE_ENV=production && concurrently --kill-others \"tsc -w\" \"node dist/index.js\""
   },
   "repository": {
     "type": "git",
