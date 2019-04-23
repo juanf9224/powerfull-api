@@ -3,6 +3,9 @@ FROM node:10
 MAINTAINER juanfh.24.6@gmail.com
 
 # Create app directory
+RUN mkdir -p /usr/src/app
+
+# Specify working directory
 WORKDIR /usr/src/app
 
 # Install app dependencies
@@ -10,6 +13,7 @@ WORKDIR /usr/src/app
 # where available (npm@5+)
 COPY package*.json ./
 
+RUN npm cache clean
 RUN npm install
 # If you are building your code for production
 # RUN npm ci --only=production
@@ -17,5 +21,5 @@ RUN npm install
 # Bundle app source
 COPY . .
 
-EXPOSE 3000
+EXPOSE 5000
 CMD [ "npm", "start" ]
