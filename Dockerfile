@@ -13,7 +13,9 @@ WORKDIR /usr/src/app
 # where available (npm@5+)
 COPY package*.json ./
 
-RUN npm cache clean
+ADD https://github.com/ufoscout/docker-compose-wait/releases/download/2.2.1/wait /wait
+RUN chmod +x /wait
+
 RUN npm install
 # If you are building your code for production
 # RUN npm ci --only=production
@@ -22,4 +24,4 @@ RUN npm install
 COPY . .
 
 EXPOSE 5000
-CMD [ "npm", "start" ]
+CMD [ "/wait", "npm", "start" ]
