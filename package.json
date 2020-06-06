@@ -22,7 +22,7 @@
   },
   "homepage": "https://github.com/juanf9224/powerfull-api#readme",
   "dependencies": {
-    "apollo-server-hapi": "1.4.0",
+    "apollo-server-hapi": "2.14.2",
     "eslint": "^5.16.0",
     "graphql": "^14.2.1",
     "graphql-tools": "^4.0.4",
